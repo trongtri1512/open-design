@@ -19,5 +19,6 @@ EXPOSE 7456
 
 ENV HOSTNAME=0.0.0.0
 ENV OD_BIND_HOST=0.0.0.0
+ENV OD_HOST=0.0.0.0
 
 CMD ["pnpm", "tools-dev", "run", "web", "--web-port", "3030", "--daemon-port", "7456"]
