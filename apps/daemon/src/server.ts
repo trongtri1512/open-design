@@ -690,7 +690,7 @@ export async function startServer({ port = 7456, host = process.env.OD_BIND_HOST
       return res.status(403).json({ error: 'Server initializing' });
     }
 
-    if (!buildAllowedOrigins().has(String(origin))) {
+    if (process.env.OD_DISABLE_CORS !== '1' && !buildAllowedOrigins().has(String(origin))) {
       return res.status(403).json({ error: 'Cross-origin requests are not allowed' });
     }
     next();
@@ -3645,6 +3645,7 @@ export function rewriteSkillAssetUrls(html: string, skillId: string): string {
 }
 
 export function isLocalSameOrigin(req, port) {
+  if (process.env.OD_DISABLE_CORS === '1') return true;
   // Accepts http + https, loopback hosts, OD_WEB_PORT, and the explicit
   // bind host — matching the global origin middleware policy exactly.
   const host = String(req.headers.host || '');
