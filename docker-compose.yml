@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  open-design:
+    image: node:24-bullseye
+    container_name: open-design
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ~/.open-design:/root/.open-design
+    ports:
+      - "3000:3000"
+      - "7456:7456"
+    command: >
+      bash -c "corepack enable &&
+               pnpm install &&
+               pnpm tools-dev run web"
+    restart: unless-stopped
