@@ -9,7 +9,7 @@ services:
       - ./:/app
       - ~/.open-design:/root/.open-design
     ports:
-      - "3000:3000"
+      - "3030:3000"
       - "7456:7456"
     command: >
       bash -c "corepack enable &&
