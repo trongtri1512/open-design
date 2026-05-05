@@ -2,20 +2,11 @@ version: '3.8'
 
 services:
   open-design:
-    image: node:24-bullseye
+    build: .
     container_name: open-design
-    working_dir: /app
     volumes:
-      - ./:/app
       - ~/.open-design:/root/.open-design
     ports:
       - "3030:3030"
       - "7456:7456"
-    environment:
-      - HOSTNAME=0.0.0.0
-      - OD_BIND_HOST=0.0.0.0
-    command: >
-      bash -c "corepack enable &&
-               pnpm install &&
-               pnpm tools-dev run web --web-port 3030 --daemon-port 7456"
     restart: unless-stopped
