@@ -2,19 +2,11 @@ FROM node:24-bullseye
 
 WORKDIR /app
 
-# Copy lockfile and package config first to leverage Docker cache
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-
 # Enable corepack and install pnpm
 RUN corepack enable
 
-# Copy all source code
-COPY apps apps/
-COPY packages packages/
-COPY tools tools/
-COPY skills skills/
-COPY docs docs/
-COPY design-systems design-systems/
+# Copy all source code (this ensures scripts/postinstall.mjs and everything else is present)
+COPY . .
 
 # Install dependencies
 RUN pnpm install
